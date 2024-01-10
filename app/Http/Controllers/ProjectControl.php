@@ -36,24 +36,6 @@ class ProjectControl extends Controller
             ->with('success', 'Project initiated successfully!');
     }
 
-    public function store(Request $request) //store new project
-    {
-        $validatedData = $request->validate([
-            'system_owner' => 'required|string|max:255',
-            'system_pic' => 'required|string|max:255',
-            'start_date' => 'required|date',
-            'duration' => 'required|integer',
-            'dev_methodology' => 'required|string|max:255',
-            'system_platform' => 'required|string|max:255',
-            'deployment_type' => 'required|string|max:255',
-        ]);
-    
-        Project::create($validatedData);
-    
-        return redirect()->route('projects.index')
-            ->with('success', 'Project initiated successfully!');
-    }
-
     public function show($id) //show project details
     {
         $project = Project::findOrFail($id);
