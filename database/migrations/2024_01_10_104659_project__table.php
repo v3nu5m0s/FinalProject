@@ -4,22 +4,22 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProjectsTable extends Migration
+class ProjectTable extends Migration
 {
     public function up()
     {
-        Schema::create('projects', function (Blueprint $table) {
+        Schema::create('db_projects', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('manager_id')->constrained(); // Assuming a foreign key to the managers table
             $table->string('system_owner');
             $table->string('system_pic');
             $table->date('start_date');
             $table->integer('duration');
             $table->date('end_date');
             $table->string('status');
-            $table->string('lead_developer');
-            $table->text('developers');
-            $table->string('dev_methodology');
-            $table->string('system_platform');
+            $table->foreignId('lead_developer_id')->nullable()->constrained(); // Assuming a foreign key to the lead_developers table
+            $table->string('methodology');
+            $table->string('platform');
             $table->string('deployment_type');
             $table->timestamps();
         });

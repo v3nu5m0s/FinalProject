@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectControl;
+use App\Http\Controllers\BusinessControl;
+use App\Http\Controllers\ITMSManagerControl;
+use App\Http\Controllers\LeadDevControl;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,11 +23,15 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
-Route::get('/projects/create', [ProjectController::class, 'create'])->name('projects.create');
-Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
-Route::get('/projects/{id}', [ProjectController::class, 'show'])->name('projects.show');
-Route::get('/projects/{id}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
-Route::put('/projects/{id}', [ProjectController::class, 'update'])->name('projects.update');
-Route::delete('/projects/{id}', [ProjectController::class, 'destroy'])->name('projects.destroy');
+// Business Unit Routes
+Route::get('/businessunit', [BusinessControl::class, 'index'])->name('businessunits.index');
+Route::get('/businessunit/create', [BusinessControl::class, 'create'])->name('businessunits.create');
+Route::post('/businessunit', [BusinessControl::class, 'store'])->name('businessunits.store');
+Route::get('/businessunit/{id}', [BusinessControl::class, 'show'])->name('businessunits.show');
+Route::get('/businessunit/{id}/edit', [BusinessControl::class, 'edit'])->name('businessunits.edit');
+Route::put('/businessunit/{id}', [BusinessControl::class, 'update'])->name('businessunits.update');
+Route::delete('/businessunit/{id}', [BusinessControl::class, 'destroy'])->name('businessunits.destroy');
+
+// Additional Custom Routes (if needed)
+Route::get('/businessunit/{id}/custom-action', [BusinessControl::class, 'customAction'])->name('businessunits.custom-action');
+// Add more custom routes as needed

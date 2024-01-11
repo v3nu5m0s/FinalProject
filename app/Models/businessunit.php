@@ -7,20 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class businessunit extends Model
 {
-    use HasFactory;
+       /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'db_business_unit';
     
-    protected $fillable = [
-        'name',
-        // Add any other fields you want to be mass-fillable
-    ];
+    
 
-    // Relationships
+    // Define relationships here if needed
 
-    // A business unit can own multiple projects
     public function projects()
     {
-        return $this->hasMany(Project::class, 'business_unit_id');
+        return $this->hasMany(Project::class, 'system_owner');
     }
-
-    // Add any other relationships or methods as needed
 }

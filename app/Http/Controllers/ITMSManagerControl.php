@@ -5,52 +5,80 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Developer;
+use App\Models\Manager;
+
 
 class ITMSManagerControl extends Controller
 {
-    public function initiateProject(Request $request)
+    public function index()
     {
-        // Initiating a new project
-        $project = new Project();
-        $project->system_owner = $request->input('system_owner');
-        $project->system_pic = $request->input('system_pic');
-        $project->start_date = now(); // You may adjust the date logic based on your requirements
-        $project->duration = $request->input('duration');
-        $project->dev_methodology = $request->input('dev_methodology');
-        $project->system_platform = $request->input('system_platform');
-        $project->deployment_type = $request->input('deployment_type');
-        $project->save();
-
-        // You may add more logic as needed, e.g., sending notifications, logging, etc.
-
-        return redirect()->route('projects.index')->with('success', 'Project initiated successfully!');
+        $managers = Manager::all();
+        return view('managers.index', compact('managers'));
     }
 
-    public function assignDeveloper(Request $request, $projectId)
+    public function create()
     {
-        // Assigning a developer to a project
-        $project = Project::findOrFail($projectId);
-
-        $leadDeveloper = $request->input('lead_developer');
-        $developerIds = $request->input('developers');
-
-        // Assign lead developer
-        $project->lead_developer = $leadDeveloper;
-
-        // Assign other developers
-        $project->developers()->sync($developerIds);
-
-        $project->save();
-
-        return redirect()->route('projects.show', $projectId)->with('success', 'Developers assigned successfully!');
+        return view('managers.create');
     }
 
-    public function monitorProjects()
+    public function store(Request $request)
     {
-        // Example: Retrieve all projects for monitoring
-        $projects = Project::all();
+        $request->validate([
+            'name' => 'required|string|max:255',
+            // Add more validation rules as needed
+        ]);
 
-        // You may pass the $projects variable to a view for display
-        return view('projects.monitor', compact('projects'));
+        $manager = Manager::create([
+            'name' => $request->input('name'),
+            // Add more fields as needed
+        ]);
+
+        return redirect()->route('managers.show', $manager->id)
+            ->with('success', 'Manager created successfully');
+    }
+
+    public function show($id)
+    {
+        $manager = Manager::findOrFail($id);
+        return view('managers.show', compact('manager'));
+    }
+
+    public function edit($id)
+    {
+        $manager = Manager::findOrFail($id);
+        return view('managers.edit', compact('manager'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            // Add more validation rules as needed
+        ]);
+
+        $manager = Manager::findOrFail($id);
+        $manager->update([
+            'name' => $request->input('name'),
+            // Add more fields as needed
+        ]);
+
+        return redirect()->route('managers.show', $manager->id)
+            ->with('success', 'Manager updated successfully');
+    }
+
+    public function destroy($id)
+    {
+        $manager = Manager::findOrFail($id);
+
+        // Example: Delete projects assigned to this manager
+        Project::where('manager_id', $id)->delete();
+
+        // Example: Update lead developers assigned to this manager
+        LeadDeveloper::where('manager_id', $id)->update(['manager_id' => null]);
+
+        $manager->delete();
+
+        return redirect()->route('managers.index')
+            ->with('success', 'Manager deleted successfully');
     }
 }

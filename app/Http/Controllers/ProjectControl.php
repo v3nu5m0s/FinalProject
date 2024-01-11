@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Project;
+use App\Models\project;
+use App\Models\businessunit;
+use App\Models\developer;
 
 class ProjectControl extends Controller
 {
@@ -13,79 +15,75 @@ class ProjectControl extends Controller
         return view('projects.index', compact('projects'));
     }
 
-    public function create() //create new project
+    public function create()
     {
-        return view('projects.create');
+        $businessUnits = BusinessUnit::all();
+        $leadDevelopers = LeadDeveloper::all();
+        return view('projects.create', compact('businessUnits', 'leadDevelopers'));
     }
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'system_owner' => 'required|string|max:255',
-            'system_pic' => 'required|string|max:255',
+        // Validate the request data
+        $request->validate([
+            'system_owner' => 'required',
+            'system_pic' => 'required',
             'start_date' => 'required|date',
-            'duration' => 'required|integer',
-            'dev_methodology' => 'required|string|max:255',
-            'system_platform' => 'required|string|max:255',
-            'deployment_type' => 'required|string|max:255',
+            'duration' => 'required|numeric',
+            'end_date' => 'required|date',
+            'status' => 'required',
+            'lead_developer' => 'required',
+            'developers' => 'array',
+            'development_methodology' => 'required',
+            'system_platform' => 'required',
+            'deployment_type' => 'required',
         ]);
 
-        Project::create($validatedData);
+        // Create a new project
+        $project = Project::create($request->all());
 
-        return redirect()->route('projects.index')
-            ->with('success', 'Project initiated successfully!');
+        // Redirect to the project details page
+        return redirect()->route('projects.show', $project->id);
     }
 
-    public function show($id) //show project details
+    public function show($id)
     {
         $project = Project::findOrFail($id);
         return view('projects.show', compact('project'));
     }
 
-    public function edit($id) //edit project details
+    public function edit($id)
     {
-        $validatedData = $request->validate([
-            'system_owner' => 'required|string|max:255',
-            'system_pic' => 'required|string|max:255',
-            'start_date' => 'required|date',
-            'duration' => 'required|integer',
-            'dev_methodology' => 'required|string|max:255',
-            'system_platform' => 'required|string|max:255',
-            'deployment_type' => 'required|string|max:255',
-        ]);
-
         $project = Project::findOrFail($id);
-        $project->update($validatedData);
-
-        return redirect()->route('projects.show', $id)
-            ->with('success', 'Project details updated successfully!');
+        $businessUnits = BusinessUnit::all();
+        $leadDevelopers = LeadDeveloper::all();
+        return view('projects.edit', compact('project', 'businessUnits', 'leadDevelopers'));
     }
 
-    public function update(Request $request, $id) //update projects details
+    public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'system_owner' => 'required|string|max:255',
-            'system_pic' => 'required|string|max:255',
-            'start_date' => 'required|date',
-            'duration' => 'required|integer',
-            'dev_methodology' => 'required|string|max:255',
-            'system_platform' => 'required|string|max:255',
-            'deployment_type' => 'required|string|max:255',
+        // Validate the request data
+        $request->validate([
+            'system_owner' => 'required',
+            // Add other validation rules as needed
         ]);
 
+        // Find the project
         $project = Project::findOrFail($id);
-        $project->update($validatedData);
 
-        return redirect()->route('projects.show', $id)
-            ->with('success', 'Project details updated successfully!');
+        // Update the project
+        $project->update($request->all());
+
+        // Redirect to the project details page
+        return redirect()->route('projects.show', $project->id);
     }
 
-    public function destroy($id) //delete a project
+    public function destroy($id)
     {
-        $project = Project::findOrFail($id);
-        $project->delete();
+        // Find the project and delete it
+        Project::findOrFail($id)->delete();
 
-        return redirect()->route('projects.index')
-            ->with('success', 'Project deleted successfully!');
+        // Redirect to the projects index page
+        return redirect()->route('projects.index');
     }
 }

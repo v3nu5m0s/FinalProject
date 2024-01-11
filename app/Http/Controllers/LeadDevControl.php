@@ -7,37 +7,62 @@ use App\Models\Project;
 
 class LeadDevControl extends Controller
 {
-    public function updateProgress(Request $request, $projectId)
+    public function index()
     {
-        // Update the progress of the development
-        $project = Project::findOrFail($projectId);
-
-        // Validate the request data
-        $request->validate([
-            'date' => 'required|date',
-            'status' => 'required|in:ahead_of_schedule,on_schedule,delayed,completed',
-            'description' => 'required|string',
-        ]);
-
-        // Update progress details
-        $project->progressReports()->create([
-            'date' => $request->input('date'),
-            'status' => $request->input('status'),
-            'description' => $request->input('description'),
-        ]);
-
-        return redirect()->route('projects.show', $projectId)->with('success', 'Progress updated successfully!');
+        $leadDevelopers = LeadDeveloper::all();
+        return view('lead_developers.index', compact('leadDevelopers'));
     }
 
-    public function viewProgressReports($projectId)
+    public function create()
     {
-        // View progress reports for a project
-        $project = Project::findOrFail($projectId);
+        return view('lead_developers.create');
+    }
 
-        // Retrieve progress reports for the project
-        $progressReports = $project->progressReports;
+    public function store(Request $request)
+    {
+        // Validate the request
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            // Add other validation rules as needed
+        ]);
 
-        // You may pass the $progressReports variable to a view for display
-        return view('projects.progress_reports', compact('project', 'progressReports'));
+        // Store the lead developer data
+        LeadDeveloper::create($validatedData);
+
+        return redirect()->route('lead_developers.index')->with('success', 'Lead Developer created successfully');
+    }
+
+    public function show($id)
+    {
+        $leadDeveloper = LeadDeveloper::findOrFail($id);
+        return view('lead_developers.show', compact('leadDeveloper'));
+    }
+
+    public function edit($id)
+    {
+        $leadDeveloper = LeadDeveloper::findOrFail($id);
+        return view('lead_developers.edit', compact('leadDeveloper'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Validate the request
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            // Add other validation rules as needed
+        ]);
+
+        // Update the lead developer data
+        LeadDeveloper::findOrFail($id)->update($validatedData);
+
+        return redirect()->route('lead_developers.index')->with('success', 'Lead Developer updated successfully');
+    }
+
+    public function destroy($id)
+    {
+        // Delete the lead developer
+        LeadDeveloper::findOrFail($id)->delete();
+
+        return redirect()->route('lead_developers.index')->with('success', 'Lead Developer deleted successfully');
     }
 }
