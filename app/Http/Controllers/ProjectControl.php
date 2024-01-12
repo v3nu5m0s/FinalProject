@@ -3,87 +3,90 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\project;
-use App\Models\businessunit;
-use App\Models\developer;
+use App\Models\BusinessUnit;
+use App\Models\Developer;
+use App\Models\Project;
 
 class ProjectControl extends Controller
 {
     public function index()
     {
-        $project = Project::all();
-        return view('iproject.index', compact('iproject'));
+        $projects = Project::all();
+        return view('projects.index', compact('projects'));
     }
 
     public function create()
     {
+        // Fetch necessary data for dropdowns or other inputs
         $businessUnits = BusinessUnit::all();
-        $leadDevelopers = LeadDeveloper::all();
-        return view('iproject.create', compact('businessUnit', 'leadDeveloper'));
+        $developers = Developer::all();
+
+        return view('projects.create', compact('businessUnits', 'developers'));
     }
 
     public function store(Request $request)
     {
-        // Validate the request data
-        $request->validate([
-            'system_owner' => 'required',
-            'system_pic' => 'required',
+        // Validate input data
+        $validatedData = $request->validate([
+            'business_unit_id' => 'required',
+            'name' => 'required',
             'start_date' => 'required|date',
-            'duration' => 'required|numeric',
+            'duration' => 'required|integer',
             'end_date' => 'required|date',
-            'status' => 'required',
-            'lead_developer' => 'required',
-            'developers' => 'array',
-            'development_methodology' => 'required',
-            'system_platform' => 'required',
-            'deployment_type' => 'required',
+            'status' => 'required|string',
         ]);
 
         // Create a new project
-        $project = Project::create($request->all());
+        $project = Project::create($validatedData);
 
-        // Redirect to the project details page
-        return redirect()->route('iproject.show', $project->id);
+        // Attach developers to the project if needed
+        $project->developers()->attach($request->input('developer_ids'));
+
+        return redirect()->route('projects.index')->with('success', 'Project created successfully');
     }
 
-    public function show($id)
+    public function show(Project $project)
     {
-        $project = Project::findOrFail($id);
-        return view('iproject.show', compact('project'));
+        return view('projects.show', compact('project'));
     }
 
-    public function edit($id)
+    public function edit(Project $project)
     {
-        $project = Project::findOrFail($id);
+        // Fetch necessary data for dropdowns or other inputs
         $businessUnits = BusinessUnit::all();
-        $leadDevelopers = LeadDeveloper::all();
-        return view('iproject.edit', compact('project', 'businessUnit', 'leadDeveloper'));
+        $developers = Developer::all();
+
+        return view('projects.edit', compact('project', 'businessUnits', 'developers'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Project $project)
     {
-        // Validate the request data
-        $request->validate([
-            'system_owner' => 'required',
-            // Add other validation rules as needed
-        ]);
+        // Validate input data
+        $validatedData = $request->validate([
+            'business_unit_id' => 'required',
+            'name' => 'required',
+            'start_date' => 'required|date',
+            'duration' => 'required|integer',
+            'end_date' => 'required|date',
+            'status' => 'required|string',
 
-        // Find the project
-        $project = Project::findOrFail($id);
+
+        ]);
+    
 
         // Update the project
-        $project->update($request->all());
+        $project->update($validatedData);
 
-        // Redirect to the project details page
-        return redirect()->route('iproject.show', $project->id);
+        // Sync developers to the project if needed
+        $project->developers()->sync($request->input('developer_ids'));
+
+        return redirect()->route('projects.index')->with('success', 'Project updated successfully');
     }
 
-    public function destroy($id)
+    public function destroy(Project $project)
     {
-        // Find the project and delete it
-        Project::findOrFail($id)->delete();
+        $project->delete();
 
-        // Redirect to the projects index page
-        return redirect()->route('iproject.index');
+        return redirect()->route('projects.index')->with('success', 'Project deleted successfully');
     }
 }

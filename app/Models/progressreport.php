@@ -3,18 +3,18 @@
 namespace App\Models;
 use App\Models\Project;
 
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BusinessUnit extends Model
+class Progress extends Model
 {
     protected $fillable = [
-        'name',
+        'date',
+        'status',
+        'description',
     ];
-    
-    public function projects()
+    public function project()
     {
-        return $this->hasMany(Project::class);
+        return $this->belongsTo(Project::class);
     }
 }

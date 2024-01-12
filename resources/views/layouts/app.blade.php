@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Project Management System</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -21,7 +21,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    Home
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -31,20 +31,21 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         @auth
-        <li class="nav-item">                
-            <a class="nav-link" href="{{ route('iproject.index') }}">Projects</a>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('projects.index') }}">Project</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('ibusinessunit.index') }}">Businnes Unit</a>
+            <a class="nav-link" href="{{ route('business-units.index') }}">Business Unit</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('ideveloper.index') }}">Lead Developer</a>
+            <a class="nav-link" href="{{ route('developers.index') }}">Lead Developer</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('imanager.index') }}">Manager</a>
+            <a class="nav-link" href="{{ route('progress-reports.index') }}">Project Status</a>
         </li>
+        <!-- Add other navigation links as needed -->
+    </ul>
 @endauth
-                    </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
@@ -88,5 +89,3 @@
             @yield('content')
         </main>
     </div>
-</body>
-</html>

@@ -3,66 +3,73 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Project;
+use App\Models\BusinessUnit;
+use App\Models\Developer;
 
 class LeadDevControl extends Controller
 {
     public function index()
     {
-        $leadDevelopers = LeadDeveloper::all();
-        return view('ideveloper.index', compact('leadDevelopers'));
+        $developers = Developer::all();
+        return view('Developers.index', compact('developers'));
     }
 
     public function create()
     {
-        return view('ideveloper.create');
+        // Fetch necessary data for dropdowns or other inputs
+        $businessUnits = BusinessUnit::all();
+        $developers = Developer::all();
+
+        return view('Developers.create', compact('businessUnits', 'developers'));
     }
 
     public function store(Request $request)
     {
-        // Validate the request
+        // Validate input data
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            // Add other validation rules as needed
+            'name' => 'required',
         ]);
 
-        // Store the lead developer data
-        LeadDeveloper::create($validatedData);
+        // Create a new Developer
+        $Developer = Developer::create($validatedData);
 
-        return redirect()->route('ideveloper.index')->with('success', 'Lead Developer created successfully');
+        // Attach developers to the Developer if needed
+
+        return redirect()->route('developers.index')->with('success', 'Developer created successfully');
     }
 
-    public function show($id)
+    public function show(Developer $developer)
     {
-        $leadDeveloper = LeadDeveloper::findOrFail($id);
-        return view('ideveloper.show', compact('leadDeveloper'));
+        return view('Developers.show', compact('developer'));
     }
 
-    public function edit($id)
+    public function edit(Developer $developer)
     {
-        $leadDeveloper = LeadDeveloper::findOrFail($id);
-        return view('ideveloper.edit', compact('leadDeveloper'));
+        // Fetch necessary data for dropdowns or other inputs
+        $businessUnits = BusinessUnit::all();
+        $developers = Developer::all();
+
+        return view('Developers.edit', compact('developer', 'businessUnits', 'developers'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Developer $Developer)
     {
-        // Validate the request
+        // Validate input data
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            // Add other validation rules as needed
+            'name' => 'required',
         ]);
 
-        // Update the lead developer data
-        LeadDeveloper::findOrFail($id)->update($validatedData);
+        // Update the Developer
+        $Developer->update($validatedData);
 
-        return redirect()->route('ideveloper.index')->with('success', 'Lead Developer updated successfully');
+
+        return redirect()->route('developers.index')->with('success', 'Developer updated successfully');
     }
 
-    public function destroy($id)
+    public function destroy(Developer $Developer)
     {
-        // Delete the lead developer
-        LeadDeveloper::findOrFail($id)->delete();
+        $Developer->delete();
 
-        return redirect()->route('ideveloper.index')->with('success', 'Lead Developer deleted successfully');
+        return redirect()->route('developers.index')->with('success', 'Developer deleted successfully');
     }
 }

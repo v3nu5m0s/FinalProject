@@ -2,65 +2,76 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\BusinessUnit;
-use App\Models\Project;
+use Illuminate\Http\Request;
+use App\Models\Developer;
 
-class BusinessUnitController extends Controller
+
+class BusinessControl extends Controller
 {
     public function index()
     {
         $businessUnits = BusinessUnit::all();
-        return view('IBusinessUnit.index', compact('businessUnit'));
+
+        return view('BusinessUnits.index', ['businessUnits' => $businessUnits]);
     }
 
     public function create()
     {
-        return view('IBusinessUnit.create');
+        // Fetch necessary data for dropdowns or other inputs
+        $businessUnits = BusinessUnit::all();
+        $developers = Developer::all();
+
+        return view('BusinessUnits.create', compact('businessUnits', 'developers'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            // Add other validation rules as needed
+        // Validate input data
+        $validatedData = $request->validate([
+            'name' => 'required',
         ]);
 
-        BusinessUnit::create($request->all());
 
-        return redirect()->route('IBusinessUnit.index')->with('success', 'Business Unit created successfully');
+        // Create a new BusinessUnit
+        $BusinessUnit = BusinessUnit::create($validatedData);
+
+      
+        return redirect()->route('business-units.index')->with('success', 'BusinessUnit created successfully');
     }
 
-    public function show($id)
+    public function show(BusinessUnit $businessUnit)
     {
-        $businessUnit = BusinessUnit::findOrFail($id);
-        return view('IBusinessUnit.show', compact('businessUnit'));
+        return view('BusinessUnits.show', compact('businessUnit'));
     }
 
-    public function edit($id)
+    public function edit(BusinessUnit $businessUnit)
     {
-        $businessUnit = BusinessUnit::findOrFail($id);
-        return view('IBusinessUnit.edit', compact('businessUnit'));
+        // Fetch necessary data for dropdowns or other inputs
+        $businessUnits = BusinessUnit::all();
+        $developers = Developer::all();
+
+        return view('BusinessUnits.edit', compact('businessUnit', 'businessUnits', 'developers'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, BusinessUnit $BusinessUnit)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            // Add other validation rules as needed
+        // Validate input data
+        $validatedData = $request->validate([
+            'name' => 'required',
         ]);
 
-        $businessUnit = BusinessUnit::findOrFail($id);
-        $businessUnit->update($request->all());
+        // Update the BusinessUnit
+        $BusinessUnit->update($validatedData);
 
-        return redirect()->route('IBusinessUnit.index')->with('success', 'Business Unit updated successfully');
+
+        return redirect()->route('business-units.index')->with('success', 'BusinessUnit updated successfully');
     }
 
-    public function destroy($id)
+    public function destroy(BusinessUnit $BusinessUnit)
     {
-        $businessUnit = BusinessUnit::findOrFail($id);
-        $businessUnit->delete();
+        $BusinessUnit->delete();
 
-        return redirect()->route('IBusinessUnit.index')->with('success', 'Business Unit deleted successfully');
+        return redirect()->route('business-units.index')->with('success', 'BusinessUnit deleted successfully');
     }
 }

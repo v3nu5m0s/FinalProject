@@ -1,30 +1,43 @@
 <?php
 
 namespace App\Models;
+use App\Models\BusinessUnit;
+use App\Models\Developer;
+use App\Models\ProgressReport;
+
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class project extends Model
+class Project extends Model
 {
     protected $fillable = [
-        'system_owner', 'system_pic', 'start_date', 'duration', 'end_date',
-        'status', 'lead_developer_id', 'methodology', 'platform', 'deployment_type'
+        'business_unit_id',
+        'name',
+        'start_date',
+        'duration',
+        'status',      // Added status field
+        'end_date',    // Added end_date field
+        // Add other fields as needed
     ];
 
-    // Define relationships here
-    public function manager()
+    public function businessUnit()
     {
-        return $this->belongsTo(Manager::class);
+        return $this->belongsTo(BusinessUnit::class);
     }
 
     public function leadDeveloper()
     {
-        return $this->belongsTo(LeadDeveloper::class);
+        return $this->belongsTo(Developer::class, 'lead_developer_id');
     }
 
     public function developers()
     {
         return $this->belongsToMany(Developer::class, 'project_developers');
+    }
+
+    public function progress()
+    {
+        return $this->hasMany(Progress::class);
     }
 }

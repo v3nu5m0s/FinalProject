@@ -1,17 +1,18 @@
 <?php
 
 namespace App\Models;
+use App\Models\Project;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class developer extends Model
+class Developer extends Model
 {
-    protected $fillable = ['name'];
-
-    // Define relationships here
+    protected $fillable = [
+        'name',
+    ];
     public function projects()
     {
-        return $this->hasMany(Project::class, 'lead_developer_id');
+        return $this->belongsToMany(Project::class, 'project_developers');
     }
 }
