@@ -6,15 +6,16 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    private const DEFAULT_USER_LEVEL = 5;
+
     /**
      * Run the migrations.
      */
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('userLevel')->default(5);
-            });
-           
+            $table->integer('userLevel')->default(self::DEFAULT_USER_LEVEL);
+        });
     }
 
     /**
@@ -23,8 +24,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('userLevel');
-            });
-           
+            $table->dropIfExists('userLevel');
+        });
     }
 };
