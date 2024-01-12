@@ -18,7 +18,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($businessUnits as $businessUnit)
+            @foreach ($businessUnit as $businessUnit)
                 <tr>
                     <td>{{ $businessUnit->id }}</td>
                     <td>{{ $businessUnit->name }}</td>

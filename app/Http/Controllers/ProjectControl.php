@@ -11,15 +11,15 @@ class ProjectControl extends Controller
 {
     public function index()
     {
-        $projects = Project::all();
-        return view('projects.index', compact('projects'));
+        $iproject = Project::all();
+        return view('iproject.index', compact('iproject'));
     }
 
     public function create()
     {
         $businessUnits = BusinessUnit::all();
         $leadDevelopers = LeadDeveloper::all();
-        return view('projects.create', compact('businessUnits', 'leadDevelopers'));
+        return view('iproject.create', compact('businessUnit', 'leadDeveloper'));
     }
 
     public function store(Request $request)
@@ -43,13 +43,13 @@ class ProjectControl extends Controller
         $project = Project::create($request->all());
 
         // Redirect to the project details page
-        return redirect()->route('projects.show', $project->id);
+        return redirect()->route('iproject.show', $project->id);
     }
 
     public function show($id)
     {
         $project = Project::findOrFail($id);
-        return view('projects.show', compact('project'));
+        return view('iproject.show', compact('project'));
     }
 
     public function edit($id)
@@ -57,7 +57,7 @@ class ProjectControl extends Controller
         $project = Project::findOrFail($id);
         $businessUnits = BusinessUnit::all();
         $leadDevelopers = LeadDeveloper::all();
-        return view('projects.edit', compact('project', 'businessUnits', 'leadDevelopers'));
+        return view('iproject.edit', compact('project', 'businessUnit', 'leadDeveloper'));
     }
 
     public function update(Request $request, $id)
@@ -75,7 +75,7 @@ class ProjectControl extends Controller
         $project->update($request->all());
 
         // Redirect to the project details page
-        return redirect()->route('projects.show', $project->id);
+        return redirect()->route('iproject.show', $project->id);
     }
 
     public function destroy($id)
@@ -84,6 +84,6 @@ class ProjectControl extends Controller
         Project::findOrFail($id)->delete();
 
         // Redirect to the projects index page
-        return redirect()->route('projects.index');
+        return redirect()->route('iproject.index');
     }
 }

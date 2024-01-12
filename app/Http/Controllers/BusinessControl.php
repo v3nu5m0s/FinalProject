@@ -6,17 +6,17 @@ use Illuminate\Http\Request;
 use App\Models\BusinessUnit;
 use App\Models\Project;
 
-class BusinessControl extends Controller
+class BusinessUnitController extends Controller
 {
     public function index()
     {
-        $businessUnit = BusinessUnit::all();
-        return view('Interface_BusinessUnit.index', compact('businessUnit'));
+        $businessUnits = BusinessUnit::all();
+        return view('IBusinessUnit.index', compact('businessUnit'));
     }
 
     public function create()
     {
-        return view('Interface_BusinessUnit.create');
+        return view('IBusinessUnit.create');
     }
 
     public function store(Request $request)
@@ -28,19 +28,19 @@ class BusinessControl extends Controller
 
         BusinessUnit::create($request->all());
 
-        return redirect()->route('Interface_BusinessUnit.index')->with('success', 'Business Unit created successfully');
+        return redirect()->route('IBusinessUnit.index')->with('success', 'Business Unit created successfully');
     }
 
     public function show($id)
     {
         $businessUnit = BusinessUnit::findOrFail($id);
-        return view('Interface_BusinessUnit.show', compact('businessUnit'));
+        return view('IBusinessUnit.show', compact('businessUnit'));
     }
 
     public function edit($id)
     {
         $businessUnit = BusinessUnit::findOrFail($id);
-        return view('Interface_BusinessUnit.edit', compact('businessUnit'));
+        return view('IBusinessUnit.edit', compact('businessUnit'));
     }
 
     public function update(Request $request, $id)
@@ -53,7 +53,7 @@ class BusinessControl extends Controller
         $businessUnit = BusinessUnit::findOrFail($id);
         $businessUnit->update($request->all());
 
-        return redirect()->route('Interface_BusinessUnit.index')->with('success', 'Business Unit updated successfully');
+        return redirect()->route('IBusinessUnit.index')->with('success', 'Business Unit updated successfully');
     }
 
     public function destroy($id)
@@ -61,6 +61,6 @@ class BusinessControl extends Controller
         $businessUnit = BusinessUnit::findOrFail($id);
         $businessUnit->delete();
 
-        return redirect()->route('Interface_BusinessUnit.index')->with('success', 'Business Unit deleted successfully');
+        return redirect()->route('IBusinessUnit.index')->with('success', 'Business Unit deleted successfully');
     }
 }

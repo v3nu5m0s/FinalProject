@@ -30,9 +30,21 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-
+                        @auth
+        <li class="nav-item">                
+            <a class="nav-link" href="{{ route('iproject.index') }}">Projects</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('ibusinessunit.index') }}">Businnes Unit</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('ideveloper.index') }}">Lead Developer</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('imanager.index') }}">Manager</a>
+        </li>
+@endauth
                     </ul>
-
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->

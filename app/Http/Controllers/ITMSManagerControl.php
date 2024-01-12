@@ -13,12 +13,12 @@ class ITMSManagerControl extends Controller
     public function index()
     {
         $managers = Manager::all();
-        return view('managers.index', compact('managers'));
+        return view('imanager.index', compact('manager'));
     }
 
     public function create()
     {
-        return view('managers.create');
+        return view('imanager.create');
     }
 
     public function store(Request $request)
@@ -33,20 +33,20 @@ class ITMSManagerControl extends Controller
             // Add more fields as needed
         ]);
 
-        return redirect()->route('managers.show', $manager->id)
+        return redirect()->route('imanager.show', $manager->id)
             ->with('success', 'Manager created successfully');
     }
 
     public function show($id)
     {
         $manager = Manager::findOrFail($id);
-        return view('managers.show', compact('manager'));
+        return view('imanager.show', compact('manager'));
     }
 
     public function edit($id)
     {
         $manager = Manager::findOrFail($id);
-        return view('managers.edit', compact('manager'));
+        return view('imanager.edit', compact('manager'));
     }
 
     public function update(Request $request, $id)
@@ -62,7 +62,7 @@ class ITMSManagerControl extends Controller
             // Add more fields as needed
         ]);
 
-        return redirect()->route('managers.show', $manager->id)
+        return redirect()->route('imanager.show', $manager->id)
             ->with('success', 'Manager updated successfully');
     }
 
@@ -78,7 +78,7 @@ class ITMSManagerControl extends Controller
 
         $manager->delete();
 
-        return redirect()->route('managers.index')
+        return redirect()->route('imanager.index')
             ->with('success', 'Manager deleted successfully');
     }
 }

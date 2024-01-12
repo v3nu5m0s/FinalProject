@@ -5,7 +5,7 @@
 @section('content')
     <h1>Edit Project</h1>
 
-    <form action="{{ route('projects.update', $project->id) }}" method="post">
+    <form action="{{ route('iproject.update', $project->id) }}" method="post">
         @csrf
         @method('PUT')
         
@@ -55,5 +55,5 @@
     
     <br>
 
-    <a href="{{ route('projects.show', $project->id) }}">Cancel</a>
+    <a href="{{ route('iproject.show', $project->id) }}">Cancel</a>
 @endsection

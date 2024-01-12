@@ -5,7 +5,7 @@
 @section('content')
     <h1>Create Project</h1>
 
-    <form action="{{ route('projects.store') }}" method="post">
+    <form action="{{ route('iproject.store') }}" method="post">
         @csrf
         <label for="system_owner">System Owner:</label>
         <input type="text" id="system_owner" name="system_owner" required>

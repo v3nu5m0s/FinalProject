@@ -33,8 +33,8 @@
                     <td>{{ $project->lead_developer ? $project->lead_developer->name : '-' }}</td>
                     <!-- Display more columns as needed -->
                     <td>
-                        <a href="{{ route('projects.show', $project->id) }}">View</a>
-                        <a href="{{ route('projects.edit', $project->id) }}">Edit</a>
+                        <a href="{{ route('iproject.show', $project->id) }}">View</a>
+                        <a href="{{ route('iproject.edit', $project->id) }}">Edit</a>
                         <!-- Add a delete button if needed -->
                     </td>
                 </tr>

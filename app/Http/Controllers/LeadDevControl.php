@@ -10,12 +10,12 @@ class LeadDevControl extends Controller
     public function index()
     {
         $leadDevelopers = LeadDeveloper::all();
-        return view('lead_developers.index', compact('leadDevelopers'));
+        return view('ideveloper.index', compact('leadDevelopers'));
     }
 
     public function create()
     {
-        return view('lead_developers.create');
+        return view('ideveloper.create');
     }
 
     public function store(Request $request)
@@ -29,19 +29,19 @@ class LeadDevControl extends Controller
         // Store the lead developer data
         LeadDeveloper::create($validatedData);
 
-        return redirect()->route('lead_developers.index')->with('success', 'Lead Developer created successfully');
+        return redirect()->route('ideveloper.index')->with('success', 'Lead Developer created successfully');
     }
 
     public function show($id)
     {
         $leadDeveloper = LeadDeveloper::findOrFail($id);
-        return view('lead_developers.show', compact('leadDeveloper'));
+        return view('ideveloper.show', compact('leadDeveloper'));
     }
 
     public function edit($id)
     {
         $leadDeveloper = LeadDeveloper::findOrFail($id);
-        return view('lead_developers.edit', compact('leadDeveloper'));
+        return view('ideveloper.edit', compact('leadDeveloper'));
     }
 
     public function update(Request $request, $id)
@@ -55,7 +55,7 @@ class LeadDevControl extends Controller
         // Update the lead developer data
         LeadDeveloper::findOrFail($id)->update($validatedData);
 
-        return redirect()->route('lead_developers.index')->with('success', 'Lead Developer updated successfully');
+        return redirect()->route('ideveloper.index')->with('success', 'Lead Developer updated successfully');
     }
 
     public function destroy($id)
@@ -63,6 +63,6 @@ class LeadDevControl extends Controller
         // Delete the lead developer
         LeadDeveloper::findOrFail($id)->delete();
 
-        return redirect()->route('lead_developers.index')->with('success', 'Lead Developer deleted successfully');
+        return redirect()->route('ideveloper.index')->with('success', 'Lead Developer deleted successfully');
     }
 }

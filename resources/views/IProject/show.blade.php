@@ -43,7 +43,7 @@
 
     <!-- Add more details as needed -->
 
-    <a href="{{ route('projects.edit', $project->id) }}">Edit Project</a>
+    <a href="{{ route('iproject.edit', $project->id) }}">Edit Project</a>
     <!-- Add a delete button if needed -->
 @endsection
 
