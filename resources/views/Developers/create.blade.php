@@ -22,11 +22,16 @@
                 <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" required>
             </div>
 
+            <div class="form-group">
+                <label for="dev_id">Developer ID:</label>
+                <input type="text" name="dev_id" id="dev_id" class="form-control" value="{{ old('dev_id') }}" required>
+            </div>
+
             <!-- Add other fields as needed -->
 
-            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="submit" class="btn btn-primary mt-3">Create</button>
 
-            <button type="button" onclick="window.history.back()" class="btn btn-secondary">Back</button>
+            <button type="button" onclick="window.history.back()" class="btn btn-secondary mt-3">Back</button>
         </form>
     </div>
 @endsection

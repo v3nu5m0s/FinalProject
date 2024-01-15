@@ -15,14 +15,17 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>NO</th>
+                    <th>Business ID</th>
                     <th>Name</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
+                @php($i=1)
                 @foreach($businessUnits as $businessUnit)
                     <tr>
+                    <td>{{ $i++ }}</td>
                         <td>{{ $businessUnit->id }}</td>
                         <td>{{ $businessUnit->name }}</td>
                         <td>

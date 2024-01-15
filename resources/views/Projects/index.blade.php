@@ -15,7 +15,8 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>No</th>
+                    <th>Project ID</th>
                     <th>Business Unit</th>
                     <th>Name</th>
                     <th>Status</th>
@@ -26,8 +27,10 @@
                 </tr>
             </thead>
             <tbody>
+                @php($i=1)
                 @foreach($projects as $project)
                     <tr>
+                        <td>{{ $i++ }}</td>
                         <td>{{ $project->id }}</td>
                         <td>{{ $project->businessUnit->name }}</td>
                         <td>{{ $project->name }}</td>

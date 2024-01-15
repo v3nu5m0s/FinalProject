@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\BusinessUnit;
 use App\Models\Developer;
 use App\Models\Project;
+use Illuminate\Http\Request;
 
-class ProjectControl extends Controller
+class ProjectController extends Controller
 {
     public function index()
     {
         $projects = Project::all();
-        return view('projects.index', compact('projects'));
+
+        return view('Projects.index', compact('projects'));
     }
 
     public function create()
@@ -21,7 +22,7 @@ class ProjectControl extends Controller
         $businessUnits = BusinessUnit::all();
         $developers = Developer::all();
 
-        return view('projects.create', compact('businessUnits', 'developers'));
+        return view('Projects.create', compact('businessUnits', 'developers'));
     }
 
     public function store(Request $request)
@@ -47,7 +48,7 @@ class ProjectControl extends Controller
 
     public function show(Project $project)
     {
-        return view('projects.show', compact('project'));
+        return view('Projects.show', compact('project'));
     }
 
     public function edit(Project $project)
@@ -56,7 +57,7 @@ class ProjectControl extends Controller
         $businessUnits = BusinessUnit::all();
         $developers = Developer::all();
 
-        return view('projects.edit', compact('project', 'businessUnits', 'developers'));
+        return view('Projects.edit', compact('project', 'businessUnits', 'developers'));
     }
 
     public function update(Request $request, Project $project)
@@ -70,9 +71,7 @@ class ProjectControl extends Controller
             'end_date' => 'required|date',
             'status' => 'required|string',
 
-
         ]);
-    
 
         // Update the project
         $project->update($validatedData);

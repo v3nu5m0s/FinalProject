@@ -38,6 +38,6 @@ class Project extends Model
 
     public function progress()
     {
-        return $this->hasMany(Progress::class);
+        return $this->hasMany(ProgressReport::class);
     }
 }

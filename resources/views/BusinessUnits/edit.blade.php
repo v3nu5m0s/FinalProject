@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+    <div class="container">
         <h2>Update Business Unit</h2>
 
         @if ($errors->any())
@@ -16,17 +16,19 @@
 
         <form method="POST" action="{{ route('business-units.update', $businessUnit->id) }}">
             @csrf
-            @method('PUT')  <!-- Use PUT method for updates -->
+            @method('PUT') <!-- Use PUT method for updates -->
 
             <div class="form-group">
                 <label for="name">Business Unit Name:</label>
-                <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $businessUnit->name) }}" required>
+                <input type="text" name="name" id="name" class="form-control"
+                    value="{{ old('name', $businessUnit->name) }}" required>
             </div>
 
             <!-- Add other fields as needed -->
 
-            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="submit" class="btn btn-primary my-3">Update</button>
+            <a href="{{ route('business-units.index') }}" class="btn btn-secondary my-3">Back</a>
         </form>
-        <a href="{{ route('business-units.index') }}" class="btn btn-secondary mb-3">Back</a>
+
     </div>
-    @endsection
+@endsection

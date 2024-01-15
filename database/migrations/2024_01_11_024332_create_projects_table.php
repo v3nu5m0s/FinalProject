@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('business_unit_id')->constrained();
+            $table->string('pro_id');
             $table->string('name');
             $table->date('start_date');
             $table->integer('duration');

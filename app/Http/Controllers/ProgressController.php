@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\BusinessUnit;
-use App\Models\ProgressReport;
 use App\Models\Developer;
+use App\Models\ProgressReport;
+use Illuminate\Http\Request;
 
-class ProgressControl extends Controller
+class ProgressController extends Controller
 {
     public function index()
     {
         $progressReports = ProgressReport::all();
-        return view('progress_reports.index', compact('progressReports'));
+
+        return view('Progress_Reports.index', compact('progressReports'));
     }
 
     public function create()
@@ -21,7 +22,7 @@ class ProgressControl extends Controller
         $businessUnits = BusinessUnit::all();
         $developers = Developer::all();
 
-        return view('progress_reports.create', compact('businessUnits', 'developers'));
+        return view('Progress_Reports.create', compact('businessUnits', 'developers'));
     }
 
     public function store(Request $request)
@@ -29,7 +30,7 @@ class ProgressControl extends Controller
         // Validate input data
         $validatedData = $request->validate([
             'date' => 'required|date',
-            'status' => 'required|in:Ahead of Schedule,On Schedule,Delayed,Completed',
+            'status' => 'required',
             'description' => 'required|string',
             // Add other fields and validation rules as needed
         ]);
@@ -37,13 +38,12 @@ class ProgressControl extends Controller
         // Create a new ProgressReport
         $ProgressReport = ProgressReport::create($validatedData);
 
-        
         return redirect()->route('progress-reports.index')->with('success', 'ProgressReport created successfully');
     }
 
     public function show(ProgressReport $progressReport)
     {
-        return view('progress_reports.show', compact('progressReport'));
+        return view('Progress_Reports.show', compact('progressReport'));
     }
 
     public function edit(ProgressReport $progressReport)
@@ -52,7 +52,7 @@ class ProgressControl extends Controller
         $businessUnits = BusinessUnit::all();
         $developers = Developer::all();
 
-        return view('progress_reports.edit', compact('progressReport', 'businessUnits', 'developers'));
+        return view('Progress_Reports.edit', compact('progressReport', 'businessUnits', 'developers'));
     }
 
     public function update(Request $request, ProgressReport $ProgressReport)
@@ -67,7 +67,6 @@ class ProgressControl extends Controller
 
         // Update the ProgressReport
         $ProgressReport->update($validatedData);
-
 
         return redirect()->route('progress-reports.index')->with('success', 'ProgressReport updated successfully');
     }

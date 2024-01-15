@@ -8,7 +8,7 @@
             <tbody>
                 <tr>
                     <th>ID</th>
-                    <td>{{ $developer->id }}</td>
+                    <td>{{ $developer->dev_id }}</td>
                 </tr>
                 <tr>
                     <th>Name</th>

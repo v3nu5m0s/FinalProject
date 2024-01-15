@@ -20,13 +20,20 @@
 
             <div class="form-group">
                 <label for="name">Developer Name:</label>
-                <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $developer->name) }}" required>
+                <input type="text" name="name" id="name" class="form-control"
+                    value="{{ old('name', $developer->name) }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="dev_id">Developer ID:</label>
+                <input type="text" name="dev_id" id="dev_id" class="form-control" 
+                    value="{{ old('dev_id', $developer->dev_id) }}" required>
             </div>
 
             <!-- Add other fields as needed -->
 
-            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="submit" class="btn btn-primary my-3">Update</button>
+            <a href="{{ route('developers.index') }}" class="btn btn-secondary  my-3">Back</a>
         </form>
-        <a href="{{ route('developers.index') }}" class="btn btn-secondary mb-3">Back</a>
     </div>
 @endsection

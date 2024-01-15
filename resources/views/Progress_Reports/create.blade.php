@@ -24,7 +24,7 @@
             <div class="form-group">
                 <label for="status">Status:</label>
                 <select name="status" id="status" class="form-control" required>
-                <option value="Not Started">Not Started</option>
+                    <option value="Not Started">Not Started</option>
                     <option value="In Progress">In Progress</option>
                     <option value="On Hold">On Hold</option>
                     <option value="Under Budget">Under Budget</option>
@@ -42,9 +42,9 @@
 
             <!-- Add other fields as needed -->
 
-            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="submit" class="btn btn-primary mt-3">Create</button>
 
-            <button type="button" onclick="window.history.back()" class="btn btn-secondary">Back</button>
+            <button type="button" onclick="window.history.back()" class="btn btn-secondary mt-3">Back</button>
         </form>
     </div>
 @endsection

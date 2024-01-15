@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Developer;
 
 
-class BusinessControl extends Controller
+class BusinessController extends Controller
 {
     public function index()
     {
@@ -36,7 +36,7 @@ class BusinessControl extends Controller
         // Create a new BusinessUnit
         $BusinessUnit = BusinessUnit::create($validatedData);
 
-      
+
         return redirect()->route('business-units.index')->with('success', 'BusinessUnit created successfully');
     }
 

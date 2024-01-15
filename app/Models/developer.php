@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Developer extends Model
 {
     protected $fillable = [
-        'name',
+        'name','dev_id',
     ];
     public function projects()
     {

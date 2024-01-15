@@ -14,7 +14,8 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>No</th>
+                    <th>Progress ID</th>
                     <th>Date</th>
                     <th>Status</th>
                     <td>Overview</td>
@@ -22,8 +23,10 @@
                 </tr>
             </thead>
             <tbody>
+                @php($i=1)
                 @foreach($progressReports as $progressReport)
                     <tr>
+                        <td>{{ $i++ }}</td>
                         <td>{{ $progressReport->id }}</td>
                         <td>{{ $progressReport->date }}</td>
                         <td>{{ $progressReport->status }}</td>

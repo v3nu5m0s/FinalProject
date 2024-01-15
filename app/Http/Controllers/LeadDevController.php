@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\BusinessUnit;
 use App\Models\Developer;
 
-class LeadDevControl extends Controller
+class LeadDevController extends Controller
 {
     public function index()
     {
@@ -27,7 +27,9 @@ class LeadDevControl extends Controller
     {
         // Validate input data
         $validatedData = $request->validate([
-            'name' => 'required',
+            'name' => 'required|string|max:255',
+            'dev_id' => 'required|string|max:255',
+            'pro_id' => 'integer',
         ]);
 
         // Create a new Developer
@@ -56,7 +58,9 @@ class LeadDevControl extends Controller
     {
         // Validate input data
         $validatedData = $request->validate([
-            'name' => 'required',
+            'name' => 'required|string|max:255',
+            'dev_id' => 'required|string|max:255',
+            'pro_id' => 'integer'
         ]);
 
         // Update the Developer

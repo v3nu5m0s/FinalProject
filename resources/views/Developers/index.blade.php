@@ -15,15 +15,18 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>No</th>
+                    <th>Dev ID</th>
                     <th>Name</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
+            @php($i=1)
                 @foreach($developers as $developer)
                     <tr>
-                        <td>{{ $developer->id }}</td>
+                        <td>{{ $i++ }}</td>
+                        <td>{{ $developer->dev_id }}</td>
                         <td>{{ $developer->name }}</td>
                         <td>
                             <a href="{{ route('developers.show', $developer->id) }}" class="btn btn-info btn-sm">Show</a>

@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('business_units', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('bis_id', 255);
+            $table->string('name', 255);
             // Add other business unit-related fields
             $table->timestamps();
         });

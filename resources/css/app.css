@@ -1,0 +1,63 @@
+/* Add your styles for a friendly user interface */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+}
+
+.welcome-container {
+    text-align: center;
+    margin: 50px auto;
+    max-width: 800px;
+}
+
+.roles-section {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.role-box {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 10px;
+    width: 250px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.role-box:hover {
+    transform: scale(1.05);
+}
+
+.manager-box {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.lead-developer-box {
+    background-color: #2ecc71;
+    color: #fff;
+}
+
+.business-unit-box {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.dashboard-link {
+    display: block;
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #2c3e50;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.dashboard-link:hover {
+    background-color: #34495e;
+}

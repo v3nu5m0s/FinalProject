@@ -2,7 +2,7 @@
     <!-- expl: create a view file for BusinessUnits.create -->
 </div>
 
-@extends('layouts.app')  <!-- Assuming you have a layout file, adjust as needed -->
+@extends('layouts.app') <!-- Assuming you have a layout file, adjust as needed -->
 
 @section('content')
     <div class="container">
@@ -28,9 +28,9 @@
 
             <!-- Add other fields as needed -->
 
-            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="submit" class="btn btn-primary mt-3">Create</button>
 
-            <button type="button" onclick="window.history.back()" class="btn btn-secondary">Back</button>
+            <button type="button" onclick="window.history.back()" class="btn btn-secondary mt-3">Back</button>
         </form>
     </div>
 @endsection
