@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
     <div class="container">
         <h2>Project Information</h2>
@@ -6,12 +7,18 @@
         <table class="table">
             <tbody>
                 <tr>
-                    <th>ID</th>
-                    <td>{{ $project->id }}</td>
+                    <th>Project ID</th>
+                    <td>{{ $project->pro_id }}</td>
                 </tr>
                 <tr>
                     <th>Business Unit</th>
-                    <td>{{ $project->businessUnit->name }}</td>
+                    <td>
+                        @if ($project->businessUnit)
+                            {{ $project->businessUnit->bis_id }}
+                        @else
+                            N/A
+                        @endif
+                    </td>
                 </tr>
                 <tr>
                     <th>Name</th>

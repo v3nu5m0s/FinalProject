@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\BusinessUnit;
-use App\Models\Developer;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
@@ -20,9 +19,8 @@ class ProjectController extends Controller
     {
         // Fetch necessary data for dropdowns or other inputs
         $businessUnits = BusinessUnit::all();
-        $developers = Developer::all();
 
-        return view('Projects.create', compact('businessUnits', 'developers'));
+        return view('Projects.create', compact('businessUnits'));
     }
 
     public function store(Request $request)
@@ -45,7 +43,6 @@ class ProjectController extends Controller
 
         return redirect()->route('projects.index')->with('success', 'Project created successfully');
     }
-
     public function show(Project $project)
     {
         return view('Projects.show', compact('project'));
@@ -64,7 +61,8 @@ class ProjectController extends Controller
     {
         // Validate input data
         $validatedData = $request->validate([
-            'business_unit_id' => 'required',
+            'pro_id' => 'required|string',
+            'bis_id' => 'required|string',
             'name' => 'required',
             'start_date' => 'required|date',
             'duration' => 'required|integer',

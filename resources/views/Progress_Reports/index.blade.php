@@ -1,6 +1,7 @@
 @extends('layouts.app')
+
 @section('content')
-    <div class="container">
+    <div class="container mt-5">
         <h2>Project Status</h2>
 
         @if(session('success'))
@@ -11,14 +12,14 @@
 
         <a href="{{ route('progress-reports.create') }}" class="btn btn-primary mb-3">Create</a>
 
-        <table class="table">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>No</th>
                     <th>Progress ID</th>
                     <th>Date</th>
                     <th>Status</th>
-                    <td>Overview</td>
+                    <th>Overview</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -32,13 +33,15 @@
                         <td>{{ $progressReport->status }}</td>
                         <td>{{ $progressReport->description }}</td>
                         <td>
-                            <a href="{{ route('progress-reports.show', $progressReport->id) }}" class="btn btn-info btn-sm">Show</a>
-                            <a href="{{ route('progress-reports.edit', $progressReport->id) }}" class="btn btn-warning btn-sm">Update</a>
-                            <form action="{{ route('progress-reports.destroy', $progressReport->id) }}" method="POST" style="display: inline-block;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Proceed with removing this progress report?')">Remove</button>
-                            </form>
+                            <div class="btn-group" role="group">
+                                <a href="{{ route('progress-reports.show', $progressReport->id) }}" class="btn btn-info btn-sm">Show</a>
+                                <a href="{{ route('progress-reports.edit', $progressReport->id) }}" class="btn btn-warning btn-sm">Update</a>
+                                <form action="{{ route('progress-reports.destroy', $progressReport->id) }}" method="POST" style="display: inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Proceed with removing this progress report?')">Remove</button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

@@ -29,7 +29,6 @@ class LeadDevController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'dev_id' => 'required|string|max:255',
-            'pro_id' => 'integer',
         ]);
 
         // Create a new Developer
@@ -60,7 +59,6 @@ class LeadDevController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'dev_id' => 'required|string|max:255',
-            'pro_id' => 'integer'
         ]);
 
         // Update the Developer

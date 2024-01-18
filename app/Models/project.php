@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Models;
+
 use App\Models\BusinessUnit;
 use App\Models\Developer;
 use App\Models\ProgressReport;
-
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,8 +15,8 @@ class Project extends Model
         'name',
         'start_date',
         'duration',
-        'status',      // Added status field
-        'end_date',    // Added end_date field
+        'status',
+        'end_date',
         // Add other fields as needed
     ];
 

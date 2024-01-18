@@ -10,9 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 class BusinessUnit extends Model
 {
     protected $fillable = [
-        'name',
+        'name', 'bis_id',
     ];
-
     public function projects()
     {
         return $this->hasMany(Project::class);

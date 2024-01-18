@@ -24,6 +24,12 @@
                     value="{{ old('name', $businessUnit->name) }}" required>
             </div>
 
+            <div class="form-group">
+                <label for="bis_id">Unit ID:</label>
+                <input type="text" name="bis_id" id="bis_id" class="form-control"
+                value="{{ old('bis_id', $businessUnit->bis_id) }}" required>
+            </div>
+
             <!-- Add other fields as needed -->
 
             <button type="submit" class="btn btn-primary my-3">Update</button>

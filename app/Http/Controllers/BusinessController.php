@@ -29,10 +29,10 @@ class BusinessController extends Controller
     {
         // Validate input data
         $validatedData = $request->validate([
-            'name' => 'required',
+            'name' => 'required|string|max:255',
+            'bis_id' => 'required|string|max:255',
         ]);
-
-
+        
         // Create a new BusinessUnit
         $BusinessUnit = BusinessUnit::create($validatedData);
 
@@ -58,7 +58,8 @@ class BusinessController extends Controller
     {
         // Validate input data
         $validatedData = $request->validate([
-            'name' => 'required',
+            'name' => 'required|string|max:255',
+            'bis_id' => 'required|string|max:255',
         ]);
 
         // Update the BusinessUnit

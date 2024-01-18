@@ -26,6 +26,11 @@
                 <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" required>
             </div>
 
+            <div class="form-group">
+                <label for="bis_id">Unit ID:</label>
+                <input type="text" name="bis_id" id="bis_id" class="form-control" value="{{ old('bis_id') }}" required>
+            </div>
+
             <!-- Add other fields as needed -->
 
             <button type="submit" class="btn btn-primary mt-3">Create</button>
