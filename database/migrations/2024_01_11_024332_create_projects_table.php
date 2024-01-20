@@ -13,17 +13,25 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string('pro_id');
+            $table->foreignId('business_unit_id');
+            $table->string('pro_id'); // Make sure 'pro_id' is included
             $table->string('name');
+            $table->text('description'); // Change to 'text' if description is a longer field
             $table->date('start_date');
             $table->integer('duration');
             $table->date('end_date');
             $table->string('status');
-            // Add other project-related fields
+            $table->string('development_overview');
+            $table->enum('system_platform', ['web', 'mobile', 'stand-alone']);
+            $table->enum('development_methodology', ['agile', 'prototyping', 'waterfall', 'rapid_application_development'])->nullable();
+            $table->enum('development_method', ['cloud', 'on-premise']);
+            $table->foreignId('lead_developer_id')->nullable();
             $table->timestamps();
-        });
 
-        
+            // Add foreign key constraints
+            $table->foreign('business_unit_id')->references('id')->on('business_units');
+            $table->foreign('lead_developer_id')->references('id')->on('developers');
+        });
     }
 
     /**

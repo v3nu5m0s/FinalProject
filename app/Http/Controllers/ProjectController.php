@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BusinessUnit;
+use App\Models\Developer;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
@@ -19,20 +20,27 @@ class ProjectController extends Controller
     {
         // Fetch necessary data for dropdowns or other inputs
         $businessUnits = BusinessUnit::all();
+        $developers = Developer::all();
 
-        return view('Projects.create', compact('businessUnits'));
+        return view('Projects.create', compact('businessUnits', 'developers'));
     }
 
     public function store(Request $request)
     {
         // Validate input data
         $validatedData = $request->validate([
-            'business_unit_id' => 'required',
+            'business_unit_id' => 'required|exists:business_units,id',
+            'pro_id' => 'required',
             'name' => 'required',
+            'description' => 'required',
             'start_date' => 'required|date',
             'duration' => 'required|integer',
             'end_date' => 'required|date',
             'status' => 'required|string',
+            'development_overview' => 'required',
+            'system_platform' => 'required|in:Web,Mobile,Stand-alone',
+            'development_methodology' => 'required|in:Agile,Prototyping,Waterfall,Rapid Application Development',
+            'development_method' => 'required|in:Cloud,On-premise',
         ]);
 
         // Create a new project
@@ -43,6 +51,7 @@ class ProjectController extends Controller
 
         return redirect()->route('projects.index')->with('success', 'Project created successfully');
     }
+
     public function show(Project $project)
     {
         return view('Projects.show', compact('project'));
@@ -61,21 +70,22 @@ class ProjectController extends Controller
     {
         // Validate input data
         $validatedData = $request->validate([
-            'pro_id' => 'required|string',
-            'bis_id' => 'required|string',
+            'business_unit_id' => 'required|exists:business_units,id',
+            'pro_id' => 'required',
             'name' => 'required',
+            'description' => 'required',
             'start_date' => 'required|date',
             'duration' => 'required|integer',
             'end_date' => 'required|date',
             'status' => 'required|string',
-
+            'development_overview' => 'required',
+            'system_platform' => 'required|in:Web,Mobile,Stand-alone',
+            'development_methodology' => 'required|in:Agile,Prototyping,Waterfall,Rapid Application Development',
+            'development_method' => 'required|in:Cloud,On-premise',
         ]);
 
         // Update the project
         $project->update($validatedData);
-
-        // Sync developers to the project if needed
-        $project->developers()->sync($request->input('developer_ids'));
 
         return redirect()->route('projects.index')->with('success', 'Project updated successfully');
     }

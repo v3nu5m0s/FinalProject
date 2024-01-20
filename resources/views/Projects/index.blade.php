@@ -10,19 +10,17 @@
             </div>
         @endif
 
-        <a href="{{ route('projects.create') }}" class="btn btn-primary mb-3">Create</a>
+        <a href="{{ route('projects.create') }}" class="btn btn-primary mb-3">Create Your Project</a>
 
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Project ID</th>
-                    <th>Business Unit</th>
                     <th>Project Name</th>
                     <th>Status</th>
-                    <th>Start Date</th>
                     <th>Duration</th>
-                    <th>End Date</th>
+                    <th>System Platform</th>
+                    <th>Development Methodology</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -31,19 +29,11 @@
                 @foreach($projects as $project)
                     <tr>
                         <td>{{ $i++ }}</td>
-                        <td>{{ $project->pro_id }}</td>
-                        <td>
-                            @if($project->businessUnit)
-                                {{ $project->businessUnit-> name }}
-                            @else
-                                N/A
-                            @endif
-                        </td>
                         <td>{{ $project->name }}</td>
                         <td>{{ $project->status }}</td>
-                        <td>{{ $project->start_date }}</td>
                         <td>{{ $project->duration }}</td>
-                        <td>{{ $project->end_date }}</td>
+                        <td>{{ $project->system_platform }}</td>
+                        <td>{{ $project->development_methodology }}</td>
                         <td>
                             <div class="btn-group" role="group">
                                 <a href="{{ route('projects.show', $project->id) }}" class="btn btn-info btn-sm">Show</a>

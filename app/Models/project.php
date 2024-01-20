@@ -12,17 +12,24 @@ class Project extends Model
 {
     protected $fillable = [
         'business_unit_id',
+        'pro_id',
+        'lead_developer_id',
         'name',
+        'description', // Add project description
         'start_date',
         'duration',
-        'status',
         'end_date',
+        'status',
+        'development_overview', // Add development overview
+        'system_platform', // Add system platform
+        'development_methodology', // Add development methodology
+        'development_method', // Add development method
         // Add other fields as needed
     ];
 
     public function businessUnit()
     {
-        return $this->belongsTo(BusinessUnit::class);
+        return $this->belongsTo(BusinessUnit::class, 'business_unit_id');
     }
 
     public function leadDeveloper()

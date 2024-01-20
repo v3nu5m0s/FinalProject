@@ -2,38 +2,46 @@
 
 @section('content')
     <div class="container">
-        <h2>Update Developer</h2>
-
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        <form method="POST" action="{{ route('developers.update', $developer->id) }}">
-            @csrf
-            @method('PUT') <!-- Use PUT method for updates -->
-
-            <div class="form-group">
-                <label for="name">Developer Name:</label>
-                <input type="text" name="name" id="name" class="form-control"
-                    value="{{ old('name', $developer->name) }}" required>
+        <div class="card my-5 shadow">
+            <div class="card-header bg-primary text-white">
+                <h2 class="card-title">Update Developer</h2>
             </div>
 
-            <div class="form-group">
-                <label for="dev_id">Developer ID:</label>
-                <input type="text" name="dev_id" id="dev_id" class="form-control" 
-                    value="{{ old('dev_id', $developer->dev_id) }}" required>
+            <div class="card-body">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <form method="POST" action="{{ route('developers.update', $developer->id) }}">
+                    @csrf
+                    @method('PUT')
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Developer Name:</label>
+                        <input type="text" name="name" id="name" class="form-control"
+                            value="{{ old('name', $developer->name) }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="dev_id" class="form-label">Developer ID:</label>
+                        <input type="text" name="dev_id" id="dev_id" class="form-control" 
+                            value="{{ old('dev_id', $developer->dev_id) }}" required>
+                    </div>
+
+                    <!-- Add other fields as needed -->
+
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary me-2">Update</button>
+                        <a href="{{ route('developers.index') }}" class="btn btn-secondary">Back</a>
+                    </div>
+                </form>
             </div>
-
-            <!-- Add other fields as needed -->
-
-            <button type="submit" class="btn btn-primary my-3">Update</button>
-            <a href="{{ route('developers.index') }}" class="btn btn-secondary  my-3">Back</a>
-        </form>
+        </div>
     </div>
 @endsection
