@@ -15,7 +15,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>No</th>
+                <th>#</th>
                 <th>Unit ID</th>
                 <th>Name</th>
                 <th>Actions</th>

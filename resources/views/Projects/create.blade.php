@@ -54,10 +54,17 @@
                             <div class="mb-3">
                                 <label for="status" class="form-label">Status:</label>
                                 <select name="status" id="status" class="form-select" required>
-                                    <option value="Not Started">Not Started</option>
-                                    <option value="In Progress">In Progress</option>
+                                    <option value="" selected>Please Choose</option>
+                                    <option value="Ahead of Schedule">Ahead of Schedule</option>
+                                    <option value="On Schedule">On Schedule</option>
+                                    <option value="Delayed">Delayed</option>
                                     <option value="Completed">Completed</option>
                                 </select>
+                                @error('status')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
 
                             <div class="mb-3">
@@ -93,28 +100,46 @@
                     <div class="mb-3">
                         <label for="system_platform" class="form-label">System Platform:</label>
                         <select name="system_platform" id="system_platform" class="form-select" required>
+                            <option value="" selected>Please Choose</option>
                             <option value="Web">Web</option>
                             <option value="Mobile">Mobile</option>
                             <option value="Stand-alone">Stand-alone</option>
                         </select>
+                        @error('system_platform')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
                         <label for="development_methodology" class="form-label">Development Methodology:</label>
                         <select name="development_methodology" id="development_methodology" class="form-select" required>
+                            <option value="" selected>Please Choose</option>
                             <option value="Agile">Agile</option>
                             <option value="Prototyping">Prototyping</option>
                             <option value="Waterfall">Waterfall</option>
                             <option value="Rapid Application Development">Rapid Application Development</option>
                         </select>
+                        @error('development_methodology')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
                         <label for="development_method" class="form-label">Development Method:</label>
                         <select name="development_method" id="development_method" class="form-select" required>
+                            <option value="" selected>Please Choose</option>
                             <option value="Cloud">Cloud</option>
                             <option value="On-premise">On-premise</option>
                         </select>
+                        @error('development_method')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                 </div>
             </div>
@@ -128,21 +153,33 @@
                     <div class="mb-3">
                         <label for="business_unit_id" class="form-label">Business Unit:</label>
                         <select name="business_unit_id" id="business_unit_id" class="form-select" required>
+                            <option value="" selected>Please Choose</option>
                             <!-- Populate the dropdown with business units -->
                             @foreach ($businessUnits as $businessUnit)
                                 <option value="{{ $businessUnit->id }}">{{ $businessUnit->name }}</option>
                             @endforeach
                         </select>
+                        @error('business_unit_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
                         <label for="lead_developer_id" class="form-label">Lead Developer:</label>
                         <select name="lead_developer_id" id="lead_developer_id" class="form-select" required>
+                            <option value="" selected>Please Choose</option>
                             <!-- Populate the dropdown with developers -->
                             @foreach ($developers as $developer)
                                 <option value="{{ $developer->id }}">{{ $developer->name }}</option>
                             @endforeach
                         </select>
+                        @error('lead_developer_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                 </div>
             </div>

@@ -45,7 +45,7 @@
                             <td>{{ $project->end_date }}</td>
                         </tr>
                         <tr>
-                            <th>Duration</th>
+                            <th>Duration (in days)</th>
                             <td>{{ $project->duration }}</td>
                         </tr>
                         <tr>

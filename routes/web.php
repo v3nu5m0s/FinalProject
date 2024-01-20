@@ -29,11 +29,12 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
 
-// In your routes/web.php or routes/api.php file
-
 Route::middleware(['auth'])->group(function () {
     Route::resource('/projects', ProjectController::class)->middleware(Project::class)->middleware(Manager::class);
+     Route::get('/projects/deleted', [ProjectController::class, 'showDeletedProjects'])->name('projects.deleted')->middleware(Project::class)->middleware(Manager::class);   
+    Route::get('/projects/{id}/restore', [ProjectController::class, 'restoreProject'])->name('projects.restore')->middleware(Project::class)->middleware(Manager::class);
+    Route::post('/projects/{id}/restore', [ProjectController::class, 'restoreProject'])->middleware(Project::class)->middleware(Manager::class);
+
     Route::resource('/business-units', BusinessController::class)->middleware(Project::class)->middleware(Manager::class);
     Route::resource('/developers', LeadDevController::class)->middleware(Project::class)->middleware(Manager::class);
-    Route::resource('/progress-reports', ProgressController::class)->middleware(Developer::class)->middleware(Manager::class);
 });

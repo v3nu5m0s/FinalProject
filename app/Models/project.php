@@ -2,30 +2,32 @@
 
 namespace App\Models;
 
-use App\Models\BusinessUnit;
-use App\Models\Developer;
-use App\Models\ProgressReport;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes; // Add this line
 
 class Project extends Model
 {
+    use HasFactory, SoftDeletes; // Add SoftDeletes to the list of traits
+
     protected $fillable = [
         'business_unit_id',
         'pro_id',
         'lead_developer_id',
         'name',
-        'description', // Add project description
+        'description',
         'start_date',
         'duration',
         'end_date',
         'status',
-        'development_overview', // Add development overview
-        'system_platform', // Add system platform
-        'development_methodology', // Add development methodology
-        'development_method', // Add development method
+        'development_overview',
+        'system_platform',
+        'development_methodology',
+        'development_method',
         // Add other fields as needed
     ];
+
+    protected $dates = ['deleted_at']; // Optional, if you want to work with date attributes
 
     public function businessUnit()
     {

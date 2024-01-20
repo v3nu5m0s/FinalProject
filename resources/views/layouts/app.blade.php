@@ -36,9 +36,6 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('developers.index') }}">Lead Developers</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('progress-reports.index') }}">Project Status</a>
-                            </li>
                             <!-- Add other navigation links as needed -->
                         </ul>
                         @endauth
@@ -52,16 +49,13 @@
                                     <a class="nav-link" href="{{ route('login') }}">Login</a>
                                 </li>
                             @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">Register</a>
-                                </li>
-                            @endif
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                    {{ Auth::user()->name }} 
+                                    @if(Auth::user()->role)
+                                        [{{ Auth::user()->role }}]
+                                    @endif
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">

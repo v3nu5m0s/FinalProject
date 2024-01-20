@@ -11,9 +11,11 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        $projects = Project::all();
+        // Retrieve both active and soft-deleted projects
+        $projects = Project::withTrashed()->get();
 
-        return view('Projects.index', compact('projects'));
+        // Pass the projects to the view
+        return view('projects.index', compact('projects'));
     }
 
     public function create()
@@ -43,11 +45,15 @@ class ProjectController extends Controller
             'development_method' => 'required|in:Cloud,On-premise',
         ]);
 
-        // Create a new project
         $project = Project::create($validatedData);
 
-        // Attach developers to the project if needed
-        $project->developers()->attach($request->input('developer_ids'));
+        // Attach lead developer if selected
+        if ($request->filled('lead_developer_id')) {
+         $project->leadDeveloper()->associate($request->input('lead_developer_id'))->save();
+}
+
+// Attach other developers if needed
+$project->developers()->attach($request->input('developer_ids'));
 
         return redirect()->route('projects.index')->with('success', 'Project created successfully');
     }
@@ -95,5 +101,43 @@ class ProjectController extends Controller
         $project->delete();
 
         return redirect()->route('projects.index')->with('success', 'Project deleted successfully');
+    }
+
+    // Restore soft-deleted project
+    public function restore($id)
+    {
+        $project = Project::withTrashed()->find($id);
+
+        if (!$project) {
+            return response()->json(['message' => 'Project not found'], 404);
+        }
+
+        $project->restore();
+
+        return response()->json(['message' => 'Project restored successfully']);
+    }
+    
+    public function showDeletedProjects()
+    {
+        // Retrieve only soft-deleted projects
+        $deletedProjects = Project::onlyTrashed()->get();
+    
+        return view('projects.deleted', compact('deletedProjects'));
+    }
+    
+
+    public function restoreProject($id)
+    {
+        // Find the soft-deleted project by its ID
+        $project = Project::withTrashed()->find($id);
+    
+        if ($project) {
+            // Restore the soft-deleted project
+            $project->restore();
+    
+            return redirect()->route('projects.index')->with('success', 'Project restored successfully.');
+        } else {
+            return redirect()->route('projects.index')->with('error', 'Project not found.');
+        }
     }
 }

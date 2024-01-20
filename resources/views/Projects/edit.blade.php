@@ -58,11 +58,14 @@
                             <div class="mb-3">
                                 <label for="status" class="form-label">Status:</label>
                                 <select name="status" id="status" class="form-select" required>
-                                    <option value="Not Started" {{ $project->status == 'Not Started' ? 'selected' : '' }}>
-                                        Not Started
+                                    <option value="Ahead of Schedule" {{ $project->status == 'Ahead of Schedule' ? 'selected' : '' }}>
+                                    Ahead of Schedule
                                     </option>
-                                    <option value="In Progress" {{ $project->status == 'In Progress' ? 'selected' : '' }}>
-                                        In Progress
+                                    <option value="On Schedule" {{ $project->status == 'On Schedule' ? 'selected' : '' }}>
+                                    On Schedule
+                                    </option>
+                                    <option value="Delayed" {{ $project->status == 'Delayed' ? 'selected' : '' }}>
+                                    Delayed
                                     </option>
                                     <option value="Completed" {{ $project->status == 'Completed' ? 'selected' : '' }}>
                                         Completed
@@ -179,7 +182,7 @@
             </div>
 
             <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary me-2">Update</button>
+                <button type="submit" class="btn btn-primary me-2" onclick="return confirm('Are you sure to update the data?')">Update</button>
                 <a href="{{ route('projects.index') }}" class="btn btn-secondary">Back</a>
             </div>
         </form>

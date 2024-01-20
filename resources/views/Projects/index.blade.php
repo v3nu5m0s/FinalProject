@@ -15,12 +15,11 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>No</th>
+                    <th>#</th>
                     <th>Project Name</th>
                     <th>Status</th>
-                    <th>Duration</th>
                     <th>System Platform</th>
-                    <th>Development Methodology</th>
+                    <th>Last Update</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -31,9 +30,8 @@
                         <td>{{ $i++ }}</td>
                         <td>{{ $project->name }}</td>
                         <td>{{ $project->status }}</td>
-                        <td>{{ $project->duration }}</td>
                         <td>{{ $project->system_platform }}</td>
-                        <td>{{ $project->development_methodology }}</td>
+                        <td>{{ $project->updated_at }}</td>
                         <td>
                             <div class="btn-group" role="group">
                                 <a href="{{ route('projects.show', $project->id) }}" class="btn btn-info btn-sm">Show</a>
@@ -49,6 +47,10 @@
                 @endforeach
             </tbody>
         </table>
-        <a href="{{ route('home') }}" class="btn btn-secondary">Back to Home</a>
+
+        <div class="d-flex justify-content-between">
+            <a href="{{ route('home') }}" class="btn btn-secondary">Back to Home</a>
+            <a href="{{ route('projects.deleted') }}" class="btn btn-secondary">View Deleted Projects</a>
+        </div>
     </div>
 @endsection

@@ -10,7 +10,7 @@
             <table class="table table-bordered">
                 <tbody>
                 <tr>
-                    <th>ID</th>
+                    <th>Developer ID</th>
                     <td>{{ $developer->dev_id }}</td>
                 </tr>
                 <tr>
