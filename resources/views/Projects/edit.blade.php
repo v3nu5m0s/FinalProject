@@ -13,12 +13,13 @@
                 </ul>
             </div>
         @endif
-
+        
         <form method="POST" action="{{ route('projects.update', $project->id) }}">
             @csrf
             @method('PUT') <!-- Use PUT method for updates -->
 
             <div class="row">
+                @if(auth()->user()->userLevel == 0)
                 {{-- Project Information --}}
                 <div class="col-md-6">
                     <div class="card mb-4">
@@ -47,7 +48,9 @@
                         </div>
                     </div>
                 </div>
+                @endif
 
+                @if(auth()->user()->userLevel <= 5)
                 {{-- Project Timeline and Progress --}}
                 <div class="col-md-6">
                     <div class="card mb-4">
@@ -55,6 +58,7 @@
                             <h3 class="card-title">Project Timeline and Progress</h3>
                         </div>
                         <div class="card-body">
+                        
                             <div class="mb-3">
                                 <label for="status" class="form-label">Status:</label>
                                 <select name="status" id="status" class="form-select" required>
@@ -102,7 +106,9 @@
                     </div>
                 </div>
             </div>
+            @endif
 
+            @if(auth()->user()->userLevel == 0)
             {{-- System Information --}}
             <div class="card mb-4">
                 <div class="card-header bg-primary text-white">
@@ -148,7 +154,9 @@
                     </div>
                 </div>
             </div>
+            @endif
 
+            @if(auth()->user()->userLevel == 0)
             {{-- System Owner --}}
             <div class="card mb-4">
                 <div class="card-header bg-primary text-white">
@@ -180,6 +188,7 @@
                     </div>
                 </div>
             </div>
+            @endif
 
             <div class="d-flex justify-content-end">
                 <button type="submit" class="btn btn-primary me-2" onclick="return confirm('Are you sure to update the data?')">Update</button>

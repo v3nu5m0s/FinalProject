@@ -9,10 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 class Developer extends Model
 {
     protected $fillable = [
-        'name','dev_id',
+        'name', 'dev_id',
     ];
+
     public function projects()
     {
-        return $this->belongsToMany(Project::class, 'project_developers');
+        return $this->hasMany(Project::class, 'lead_developer_id');
     }
 }

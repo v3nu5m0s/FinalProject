@@ -16,7 +16,6 @@ class Developer
      */
     public function handle(Request $request, Closure $next): Response
     {
-
         if (Auth::user() && Auth::user()->role == 'developer') {
 
             return $next($request);

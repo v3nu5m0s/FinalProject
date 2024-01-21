@@ -10,7 +10,9 @@
             </div>
         @endif
 
-        <a href="{{ route('projects.create') }}" class="btn btn-primary mb-3">Create Your Project</a>
+        @if(auth()->user()->userLevel == 0)
+            <a href="{{ route('projects.create') }}" class="btn btn-primary mb-3">Create Your Project</a>
+        @endif
 
         <table class="table table-striped">
             <thead>
@@ -25,7 +27,7 @@
             </thead>
             <tbody>
                 @php($i=1)
-                @foreach($projects as $project)
+                @forelse($projects as $project)
                     <tr>
                         <td>{{ $i++ }}</td>
                         <td>{{ $project->name }}</td>
@@ -34,23 +36,33 @@
                         <td>{{ $project->updated_at }}</td>
                         <td>
                             <div class="btn-group" role="group">
-                                <a href="{{ route('projects.show', $project->id) }}" class="btn btn-info btn-sm">Show</a>
+                                @if(auth()->user()->userLevel == 0)
+                                    <a href="{{ route('projects.show', $project->id) }}" class="btn btn-info btn-sm">Show</a>
+                                @endif
                                 <a href="{{ route('projects.edit', $project->id) }}" class="btn btn-warning btn-sm">Update</a>
-                                <form action="{{ route('projects.destroy', $project->id) }}" method="POST" style="display: inline-block;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Proceed with removing this project?')">Remove</button>
-                                </form>
+                                @if(auth()->user()->userLevel == 0)
+                                    <form action="{{ route('projects.destroy', $project->id) }}" method="POST" style="display: inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Proceed with removing this project?')">Remove</button>
+                                    </form>
+                                @endif
                             </div>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="6" class="text-center">No projects available.</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
 
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between mt-3">
             <a href="{{ route('home') }}" class="btn btn-secondary">Back to Home</a>
-            <a href="{{ route('projects.deleted') }}" class="btn btn-secondary">View Deleted Projects</a>
+            @if(auth()->user()->userLevel == 0)
+                <a href="{{ route('projects.deleted') }}" class="btn btn-secondary">View Deleted Projects</a>
+            @endif
         </div>
     </div>
 @endsection

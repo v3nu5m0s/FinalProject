@@ -11,16 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('developers', function (Blueprint $table) {
+        Schema::create('progress_reports', function (Blueprint $table) {
             $table->id();
-            $table->string('dev_id', 255);
-            $table->string('name', 255);
+            $table->foreignId('project_id')->nullable()->constrained();
+            $table->date('date');
+            $table->string('status');
+            $table->text('description');
+            // Add other progress report-related fields
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('developers');
+        Schema::dropIfExists('progress_reports');
     }
 };

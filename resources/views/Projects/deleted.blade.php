@@ -22,7 +22,7 @@
                             <td>{{ $project->name }}</td>
                             <td>{{ $project->deleted_at }}</td>
                             <td>
-                                <form action="{{ route('projects.restore', $project->id) }}" method="POST" style="display: inline-block;">
+                                <form action="{{ route('projects.restore', $project->id) }}" method="post" style="display: inline-block;">
                                     @csrf
                                     <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Are you sure you want to restore this project?')">Restore</button>
                                 </form>

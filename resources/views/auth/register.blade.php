@@ -72,25 +72,18 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="role"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
+    <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
 
-                                <div class="col-md-6">
-                                    <select id="role" required name="role" class="form-control">
-                                        <option value="">Please Choose</option>
-                                        <option value="developer">Developer</option>
-                                        <option value="project">Project</option>
-                                        <option value="manager">Manager</option>
-                                    </select>
+    <div class="col-md-6">
+        <input id="role" type="text" class="form-control" name="role" value="developer" readonly>
 
-
-                                    @error('role')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
+        @error('role')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
+</div>
 
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
