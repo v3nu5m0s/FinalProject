@@ -67,11 +67,34 @@ class LeadDevController extends Controller
 
         return redirect()->route('developers.index')->with('success', 'Developer updated successfully');
     }
-
+    
     public function destroy(Developer $developer)
     {
         $developer->delete();
 
         return redirect()->route('developers.index')->with('success', 'Developer deleted successfully');
     }
+
+    // Add a restore method
+    public function restore($id)
+    {
+        $developer = Developer::withTrashed()->find($id);
+
+        if (!$developer) {
+            return redirect()->route('developers.index')->with('error', 'Developer not found');
+        }
+
+        $developer->restore();
+
+        return redirect()->route('developers.index')->with('success', 'Developer restored successfully');
+    }
+
+    // Show deleted developers
+    public function showDeletedDevelopers()
+    {
+        $deletedDevelopers = Developer::onlyTrashed()->get();
+
+        return view('Developers.deleted', compact('deletedDevelopers'));
+    }
+
 }

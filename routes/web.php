@@ -21,8 +21,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::middleware(['auth'])->group(function () {
     Route::resource('/projects', ProjectController::class);
     Route::get('/deletedProjects', [ProjectController::class, 'showDeletedProjects'])->name('projects.deleted');   
-    Route::get('/deletedProjects/{id}/restore', [ProjectController::class, 'restoreProject'])->name('projects.restore')->middleware(Project::class)->middleware(Manager::class);
-    Route::post('/deletedProjects/{id}/restore', [ProjectController::class, 'restoreProject'])->middleware(Project::class)->middleware(Manager::class);
+    Route::post('/deletedProjects/{id}', [ProjectController::class, 'restoreProject'])->name('projects.restore');
+
+    Route::resource('/developers', LeadDevController::class);
+    Route::get('/deletedDevelopers', [LeadDevController::class, 'showDeletedDevelopers'])->name('developers.deleted');
+    Route::post('/deletedDevelopers/{id}', [LeadDevController::class, 'restore'])->name('developers.restore');
 
     Route::resource('/business-units', BusinessController::class);
     Route::resource('/developers', LeadDevController::class);

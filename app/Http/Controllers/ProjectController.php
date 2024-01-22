@@ -86,6 +86,7 @@ class ProjectController extends Controller
 
     public function restoreProject($id)
     {
+
         $project = Project::withTrashed()->find($id);
 
         if ($project) {

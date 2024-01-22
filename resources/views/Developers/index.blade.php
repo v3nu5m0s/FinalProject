@@ -52,6 +52,11 @@
             </tbody>
         </table>
 
-        <a href="{{ route('home') }}" class="btn btn-secondary">Back to Home</a>
+        <div class="d-flex justify-content-between mt-3">
+            <a href="{{ route('home') }}" class="btn btn-secondary">Back to Home</a>
+            @if(auth()->user()->userLevel == 0)
+                <a href="{{ route('developers.deleted') }}" class="btn btn-secondary">View Deleted Projects</a>
+            @endif
+        </div>
     </div>
 @endsection

@@ -23,8 +23,9 @@
                             <td>{{ $project->deleted_at }}</td>
                             <td>
                                 <form action="{{ route('projects.restore', $project->id) }}" method="post" style="display: inline-block;">
-                                    @csrf
-                                    <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Are you sure you want to restore this project?')">Restore</button>
+                                 @csrf
+                                @method('post') {{-- Add this line to specify the method --}}
+                                     <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Are you sure you want to restore this project?')">Restore</button>
                                 </form>
                             </td>
                         </tr>
